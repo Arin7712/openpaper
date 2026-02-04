@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model User {
+  id              String   @id @default(cuid())
+  clerkId         String   @unique
+  name            String?
+  email           String   @unique
+  role            Role     @default(USER)
+
+  // Optional back-reference (not owning)
+  authorProfile   Author?
+  publishedPapers Paper[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+
+model Author {
+  id               String   @id @default(cuid())
+
+  name             String
+  affiliation      String?
+  researchAreas    String[]
+
+  // External identifiers
+  orcid            String?
+  googleScholarId  String?
+
+  // Claiming logic (single source of truth)
+  claimedByUserId  String?  @unique
+  claimedByUser    User?    @relation(fields: [claimedByUserId], references: [id])
+
+  isVerified       Boolean  @default(false)
+
+  papers           Paper[]  @relation("PaperAuthors")
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+
+model Paper {
+  id            String      @id @default(cuid())
+
+  title         String
+  abstract      String
+  pdfUrl        String
+
+  // Relations
+  authors       Author[]    @relation("PaperAuthors")
+  publishedById String
+  publishedBy   User        @relation(fields: [publishedById], references: [id])
+
+  // Source & status
+  sourceType    SourceType
+  status        PaperStatus @default(PUBLISHED)
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum SourceType {
+  MANUAL
+  USER_UPLOAD
+}
+
+enum PaperStatus {
+  DRAFT
+  PENDING
+  PUBLISHED
+}
