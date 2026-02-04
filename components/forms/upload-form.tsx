@@ -40,7 +40,7 @@ const formSchema = z.object({
     .max(100, "Description must be at most 100 characters."),
 })
 
-export function UploadForm() {
+export default function UploadForm() {
   const form = useForm({
     defaultValues: {
       title: "",
