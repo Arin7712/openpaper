@@ -22,7 +22,7 @@ const Navbar = () => {
 
       {/* Authenticate */}
       <div className='flex items-center gap-6'>
-        <Link href="/auth/upload" className={buttonVariants({ variant: "outline" })}>Upload</Link>
+        <Link href="/upload" className={buttonVariants({ variant: "outline" })}>Upload</Link>
       <Link href="/sign-in" className={buttonVariants()}>Sign in</Link>
       </div>
     </nav>

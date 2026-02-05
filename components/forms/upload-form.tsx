@@ -28,26 +28,18 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group"
+import { UploadFormSchema } from "@/lib/validations/upload-form"
 
-const formSchema = z.object({
-  title: z
-    .string()
-    .min(5, "Bug title must be at least 5 characters.")
-    .max(32, "Bug title must be at most 32 characters."),
-  description: z
-    .string()
-    .min(20, "Description must be at least 20 characters.")
-    .max(100, "Description must be at most 100 characters."),
-})
 
 export default function UploadForm() {
   const form = useForm({
     defaultValues: {
       title: "",
-      description: "",
+      abstract: "",
+      pdfUrl: "",
     },
     validators: {
-      onSubmit: formSchema,
+      onSubmit: UploadFormSchema,
     },
     onSubmit: async ({ value }) => {
       toast("You submitted the following values:", {
@@ -68,16 +60,17 @@ export default function UploadForm() {
   })
 
   return (
+    <div className="flex min-h-screen items-center justify-center">
     <Card className="w-full sm:max-w-md">
       <CardHeader>
-        <CardTitle>Bug Report</CardTitle>
+        <CardTitle>Upload Paper</CardTitle>
         <CardDescription>
-          Help us improve by reporting bugs you encounter.
+          Upload a new paper to the system.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form
-          id="bug-report-form"
+          id="upload-form"
           onSubmit={(e) => {
             e.preventDefault()
             form.handleSubmit()
@@ -91,7 +84,7 @@ export default function UploadForm() {
                   field.state.meta.isTouched && !field.state.meta.isValid
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name}>Bug Title</FieldLabel>
+                    <FieldLabel htmlFor={field.name}>Title</FieldLabel>
                     <Input
                       id={field.name}
                       name={field.name}
@@ -110,13 +103,13 @@ export default function UploadForm() {
               }}
             />
             <form.Field
-              name="description"
+              name="abstract"
               children={(field) => {
                 const isInvalid =
                   field.state.meta.isTouched && !field.state.meta.isValid
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name}>Description</FieldLabel>
+                    <FieldLabel htmlFor={field.name}>Abstract</FieldLabel>
                     <InputGroup>
                       <InputGroupTextarea
                         id={field.name}
@@ -146,19 +139,43 @@ export default function UploadForm() {
                 )
               }}
             />
+
+            <form.Field
+              name="pdfUrl"
+              children={(field) => {
+                const isInvalid =
+                  field.state.meta.isTouched && !field.state.meta.isValid
+                return (
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel htmlFor={field.name}>PDF URL</FieldLabel>
+                    <Input
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      aria-invalid={isInvalid}
+                      placeholder="Login button not working on mobile"
+                      autoComplete="off"
+                    />
+                    {isInvalid && (
+                      <FieldError errors={field.state.meta.errors} />
+                    )}
+                  </Field>
+                )
+              }}
+            />
           </FieldGroup>
         </form>
       </CardContent>
       <CardFooter>
         <Field orientation="horizontal">
-          <Button type="button" variant="outline" onClick={() => form.reset()}>
-            Reset
-          </Button>
           <Button type="submit" form="bug-report-form">
-            Submit
+            Publish Paper
           </Button>
         </Field>
       </CardFooter>
     </Card>
+    </div>
   )
 }
