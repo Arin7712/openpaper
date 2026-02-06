@@ -1,10 +1,13 @@
 import SearchBar from '@/components/searchbar'
+import { fetchPapers } from '@/lib/db/paper';
 import React from 'react'
 
-const page = () => {
+const page = async () => {
+    const papers = await fetchPapers();
+  
   return (
     <div>
-      <SearchBar/>
+      <SearchBar papers={papers}/>
     </div>
   )
 }
