@@ -3,7 +3,9 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 import Link from 'next/link'
 
 
+
 const SearchResults = ({filteredItems} : {filteredItems: any[]}) => {
+
   return (
       <div className="flex flex-col items-center gap-2">
         <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6'>
@@ -12,7 +14,7 @@ const SearchResults = ({filteredItems} : {filteredItems: any[]}) => {
           <Card className='w-60'>
             <CardHeader>
               <CardTitle>{item.title}</CardTitle>
-              <CardDescription>{item.description}</CardDescription>
+              <CardDescription>{item.abstract}</CardDescription>
             </CardHeader>
           </Card>
           </Link>

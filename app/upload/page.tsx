@@ -19,7 +19,7 @@ const Upload = async () => {
 
   return (
     <main>
-      <UploadForm/>
+      <UploadForm publishedById={user.id || ''}/>
     </main>
   )
 }

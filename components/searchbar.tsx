@@ -6,12 +6,14 @@ import { Input } from "./ui/input";
 import SearchResults from "./search-results";
 
 
-const SearchBar = () => {
+const SearchBar = ({papers} : {papers: any[]}) => {
 
   const [query, setQuery] = useState("");
   const filteredItems = useMemo(() => {
-    return searchItems(dataItems, query);
-  }, [query]);
+    return searchItems(papers, query);
+  }, [query, papers]);
+
+  
 
   return (
     <div className="flex flex-col items-center gap-6">

@@ -65,7 +65,7 @@ export function searchItems(items: any[], query: string) {
       let score = 0
 
       if (item.title.toLowerCase().includes(q)) score += 2
-      if (item.description.toLowerCase().includes(q)) score += 1
+      if (item.abstract.toLowerCase().includes(q)) score += 1
 
       return score > 0 ? { ...item, score } : null
     })
