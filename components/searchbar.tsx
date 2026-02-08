@@ -10,7 +10,7 @@ type Item = {
   title: string
   abstract: string
   pdfUrl: string
-  datePublished: string
+  datePublished: Date
   status: string 
 }
 
