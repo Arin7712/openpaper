@@ -15,5 +15,10 @@ export const UploadFormSchema = z.object({
       }),
     )
     .min(1, "Atleast one author is required."),
-  categories: z.array(z.string()).min(1),
+  categories: z.array(
+    z.object({
+      name: z.string().min(2, "Category name must be atleast 2 characters long."),
+      slug: z.string().min(2, "Category slug must be atleast 2 characters long."),
+    })
+  ),
 });

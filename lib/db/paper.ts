@@ -2,6 +2,10 @@
 import { categories } from "../constants";
 import prisma from "../prisma";
 
+type Category = {
+  name: string;
+  slug: string;
+}
 export type PublishPaperProps = {
   title: string;
   abstract: string;
@@ -14,7 +18,7 @@ export type PublishPaperProps = {
     affiliation?: string;
   }[];
   datePublished: Date;
-  categories: string[];
+  categories: Category[];
 };
 
 export async function PublishPaperManually(data: PublishPaperProps) {
@@ -42,11 +46,13 @@ export async function PublishPaperManually(data: PublishPaperProps) {
           })),
         },
         categories: {
-          connectOrCreate: data.categories.map((slug) => ({
-            where: { slug },
+          connectOrCreate: data.categories.map((category) => ({
+            where: {
+              slug: category.slug,
+            },
             create: {
-              name: slug,
-              slug,
+              name: category.name,
+              slug: category.slug,
             },
           })),
         },

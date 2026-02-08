@@ -40,10 +40,11 @@ import {
 } from "@/components/ui/select";
 
 import { UploadFormSchema } from "@/lib/validations/upload-form";
-import { PublishPaperManually, PublishPaperProps } from "@/lib/db/paper";
+import { PublishPaperManually} from "@/lib/db/paper";
 import { Calendar } from "../ui/calendar";
 import { categories } from "@/lib/constants";
 import { Label } from "../ui/label";
+
 
 export default function UploadForm({
   publishedById,
@@ -56,8 +57,8 @@ export default function UploadForm({
       abstract: "",
       pdfUrl: "",
       authors: [{ name: "", affiliation: "" }],
-      datePublished: new Date(),
-      categories: [],
+      datePublished:  new Date(),
+      categories: [{name: "", slug: ""}],
     },
     validators: {
       onSubmit: ({ value }) => {
@@ -200,7 +201,7 @@ export default function UploadForm({
 
                       <div className="flex flex-col gap-2">
                         {categories.map((category) => {
-                          const checked = field.state.value.includes(category);
+const checked = field.state.value.some(c => c.slug === category);
 
                           return (
                             <label
@@ -213,9 +214,9 @@ export default function UploadForm({
                                 onChange={(e) => {
                                   field.handleChange(
                                     e.target.checked
-                                      ? [...field.state.value, category]
+                                      ? [...field.state.value, {name: category, slug: category}]
                                       : field.state.value.filter(
-                                          (c) => c !== category,
+                                          (c) => c.slug !== category,
                                         ),
                                   );
                                 }}
