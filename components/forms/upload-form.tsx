@@ -50,7 +50,7 @@ export default function UploadForm({
 }: {
   publishedById: string;
 }) {
-  const form = useForm<PublishPaperProps>({
+  const form = useForm({
     defaultValues: {
       title: "",
       abstract: "",
