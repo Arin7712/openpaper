@@ -32,6 +32,7 @@ export type PaperMinAggregateOutputType = {
   publishedById: string | null
   sourceType: $Enums.SourceType | null
   status: $Enums.PaperStatus | null
+  datePublished: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -44,6 +45,7 @@ export type PaperMaxAggregateOutputType = {
   publishedById: string | null
   sourceType: $Enums.SourceType | null
   status: $Enums.PaperStatus | null
+  datePublished: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +58,7 @@ export type PaperCountAggregateOutputType = {
   publishedById: number
   sourceType: number
   status: number
+  datePublished: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -70,6 +73,7 @@ export type PaperMinAggregateInputType = {
   publishedById?: true
   sourceType?: true
   status?: true
+  datePublished?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -82,6 +86,7 @@ export type PaperMaxAggregateInputType = {
   publishedById?: true
   sourceType?: true
   status?: true
+  datePublished?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,6 +99,7 @@ export type PaperCountAggregateInputType = {
   publishedById?: true
   sourceType?: true
   status?: true
+  datePublished?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -179,6 +185,7 @@ export type PaperGroupByOutputType = {
   publishedById: string
   sourceType: $Enums.SourceType
   status: $Enums.PaperStatus
+  datePublished: Date
   createdAt: Date
   updatedAt: Date
   _count: PaperCountAggregateOutputType | null
@@ -212,10 +219,12 @@ export type PaperWhereInput = {
   publishedById?: Prisma.StringFilter<"Paper"> | string
   sourceType?: Prisma.EnumSourceTypeFilter<"Paper"> | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFilter<"Paper"> | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFilter<"Paper"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Paper"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Paper"> | Date | string
   authors?: Prisma.AuthorListRelationFilter
   publishedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  categories?: Prisma.CategoryListRelationFilter
 }
 
 export type PaperOrderByWithRelationInput = {
@@ -226,10 +235,12 @@ export type PaperOrderByWithRelationInput = {
   publishedById?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  datePublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   authors?: Prisma.AuthorOrderByRelationAggregateInput
   publishedBy?: Prisma.UserOrderByWithRelationInput
+  categories?: Prisma.CategoryOrderByRelationAggregateInput
 }
 
 export type PaperWhereUniqueInput = Prisma.AtLeast<{
@@ -243,10 +254,12 @@ export type PaperWhereUniqueInput = Prisma.AtLeast<{
   publishedById?: Prisma.StringFilter<"Paper"> | string
   sourceType?: Prisma.EnumSourceTypeFilter<"Paper"> | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFilter<"Paper"> | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFilter<"Paper"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Paper"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Paper"> | Date | string
   authors?: Prisma.AuthorListRelationFilter
   publishedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  categories?: Prisma.CategoryListRelationFilter
 }, "id">
 
 export type PaperOrderByWithAggregationInput = {
@@ -257,6 +270,7 @@ export type PaperOrderByWithAggregationInput = {
   publishedById?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  datePublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PaperCountOrderByAggregateInput
@@ -275,6 +289,7 @@ export type PaperScalarWhereWithAggregatesInput = {
   publishedById?: Prisma.StringWithAggregatesFilter<"Paper"> | string
   sourceType?: Prisma.EnumSourceTypeWithAggregatesFilter<"Paper"> | $Enums.SourceType
   status?: Prisma.EnumPaperStatusWithAggregatesFilter<"Paper"> | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeWithAggregatesFilter<"Paper"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Paper"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Paper"> | Date | string
 }
@@ -286,10 +301,12 @@ export type PaperCreateInput = {
   pdfUrl: string
   sourceType: $Enums.SourceType
   status?: $Enums.PaperStatus
+  datePublished?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   authors?: Prisma.AuthorCreateNestedManyWithoutPapersInput
   publishedBy: Prisma.UserCreateNestedOneWithoutPublishedPapersInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutPapersInput
 }
 
 export type PaperUncheckedCreateInput = {
@@ -300,9 +317,11 @@ export type PaperUncheckedCreateInput = {
   publishedById: string
   sourceType: $Enums.SourceType
   status?: $Enums.PaperStatus
+  datePublished?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   authors?: Prisma.AuthorUncheckedCreateNestedManyWithoutPapersInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutPapersInput
 }
 
 export type PaperUpdateInput = {
@@ -312,10 +331,12 @@ export type PaperUpdateInput = {
   pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authors?: Prisma.AuthorUpdateManyWithoutPapersNestedInput
   publishedBy?: Prisma.UserUpdateOneRequiredWithoutPublishedPapersNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutPapersNestedInput
 }
 
 export type PaperUncheckedUpdateInput = {
@@ -326,9 +347,11 @@ export type PaperUncheckedUpdateInput = {
   publishedById?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authors?: Prisma.AuthorUncheckedUpdateManyWithoutPapersNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutPapersNestedInput
 }
 
 export type PaperCreateManyInput = {
@@ -339,6 +362,7 @@ export type PaperCreateManyInput = {
   publishedById: string
   sourceType: $Enums.SourceType
   status?: $Enums.PaperStatus
+  datePublished?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -350,6 +374,7 @@ export type PaperUpdateManyMutationInput = {
   pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -362,6 +387,7 @@ export type PaperUncheckedUpdateManyInput = {
   publishedById?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -384,6 +410,7 @@ export type PaperCountOrderByAggregateInput = {
   publishedById?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  datePublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -396,6 +423,7 @@ export type PaperMaxOrderByAggregateInput = {
   publishedById?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  datePublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -408,6 +436,7 @@ export type PaperMinOrderByAggregateInput = {
   publishedById?: Prisma.SortOrder
   sourceType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  datePublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -500,6 +529,44 @@ export type EnumPaperStatusFieldUpdateOperationsInput = {
   set?: $Enums.PaperStatus
 }
 
+export type PaperCreateNestedManyWithoutCategoriesInput = {
+  create?: Prisma.XOR<Prisma.PaperCreateWithoutCategoriesInput, Prisma.PaperUncheckedCreateWithoutCategoriesInput> | Prisma.PaperCreateWithoutCategoriesInput[] | Prisma.PaperUncheckedCreateWithoutCategoriesInput[]
+  connectOrCreate?: Prisma.PaperCreateOrConnectWithoutCategoriesInput | Prisma.PaperCreateOrConnectWithoutCategoriesInput[]
+  connect?: Prisma.PaperWhereUniqueInput | Prisma.PaperWhereUniqueInput[]
+}
+
+export type PaperUncheckedCreateNestedManyWithoutCategoriesInput = {
+  create?: Prisma.XOR<Prisma.PaperCreateWithoutCategoriesInput, Prisma.PaperUncheckedCreateWithoutCategoriesInput> | Prisma.PaperCreateWithoutCategoriesInput[] | Prisma.PaperUncheckedCreateWithoutCategoriesInput[]
+  connectOrCreate?: Prisma.PaperCreateOrConnectWithoutCategoriesInput | Prisma.PaperCreateOrConnectWithoutCategoriesInput[]
+  connect?: Prisma.PaperWhereUniqueInput | Prisma.PaperWhereUniqueInput[]
+}
+
+export type PaperUpdateManyWithoutCategoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.PaperCreateWithoutCategoriesInput, Prisma.PaperUncheckedCreateWithoutCategoriesInput> | Prisma.PaperCreateWithoutCategoriesInput[] | Prisma.PaperUncheckedCreateWithoutCategoriesInput[]
+  connectOrCreate?: Prisma.PaperCreateOrConnectWithoutCategoriesInput | Prisma.PaperCreateOrConnectWithoutCategoriesInput[]
+  upsert?: Prisma.PaperUpsertWithWhereUniqueWithoutCategoriesInput | Prisma.PaperUpsertWithWhereUniqueWithoutCategoriesInput[]
+  set?: Prisma.PaperWhereUniqueInput | Prisma.PaperWhereUniqueInput[]
+  disconnect?: Prisma.PaperWhereUniqueInput | Prisma.PaperWhereUniqueInput[]
+  delete?: Prisma.PaperWhereUniqueInput | Prisma.PaperWhereUniqueInput[]
+  connect?: Prisma.PaperWhereUniqueInput | Prisma.PaperWhereUniqueInput[]
+  update?: Prisma.PaperUpdateWithWhereUniqueWithoutCategoriesInput | Prisma.PaperUpdateWithWhereUniqueWithoutCategoriesInput[]
+  updateMany?: Prisma.PaperUpdateManyWithWhereWithoutCategoriesInput | Prisma.PaperUpdateManyWithWhereWithoutCategoriesInput[]
+  deleteMany?: Prisma.PaperScalarWhereInput | Prisma.PaperScalarWhereInput[]
+}
+
+export type PaperUncheckedUpdateManyWithoutCategoriesNestedInput = {
+  create?: Prisma.XOR<Prisma.PaperCreateWithoutCategoriesInput, Prisma.PaperUncheckedCreateWithoutCategoriesInput> | Prisma.PaperCreateWithoutCategoriesInput[] | Prisma.PaperUncheckedCreateWithoutCategoriesInput[]
+  connectOrCreate?: Prisma.PaperCreateOrConnectWithoutCategoriesInput | Prisma.PaperCreateOrConnectWithoutCategoriesInput[]
+  upsert?: Prisma.PaperUpsertWithWhereUniqueWithoutCategoriesInput | Prisma.PaperUpsertWithWhereUniqueWithoutCategoriesInput[]
+  set?: Prisma.PaperWhereUniqueInput | Prisma.PaperWhereUniqueInput[]
+  disconnect?: Prisma.PaperWhereUniqueInput | Prisma.PaperWhereUniqueInput[]
+  delete?: Prisma.PaperWhereUniqueInput | Prisma.PaperWhereUniqueInput[]
+  connect?: Prisma.PaperWhereUniqueInput | Prisma.PaperWhereUniqueInput[]
+  update?: Prisma.PaperUpdateWithWhereUniqueWithoutCategoriesInput | Prisma.PaperUpdateWithWhereUniqueWithoutCategoriesInput[]
+  updateMany?: Prisma.PaperUpdateManyWithWhereWithoutCategoriesInput | Prisma.PaperUpdateManyWithWhereWithoutCategoriesInput[]
+  deleteMany?: Prisma.PaperScalarWhereInput | Prisma.PaperScalarWhereInput[]
+}
+
 export type PaperCreateWithoutPublishedByInput = {
   id?: string
   title: string
@@ -507,9 +574,11 @@ export type PaperCreateWithoutPublishedByInput = {
   pdfUrl: string
   sourceType: $Enums.SourceType
   status?: $Enums.PaperStatus
+  datePublished?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   authors?: Prisma.AuthorCreateNestedManyWithoutPapersInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutPapersInput
 }
 
 export type PaperUncheckedCreateWithoutPublishedByInput = {
@@ -519,9 +588,11 @@ export type PaperUncheckedCreateWithoutPublishedByInput = {
   pdfUrl: string
   sourceType: $Enums.SourceType
   status?: $Enums.PaperStatus
+  datePublished?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   authors?: Prisma.AuthorUncheckedCreateNestedManyWithoutPapersInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutPapersInput
 }
 
 export type PaperCreateOrConnectWithoutPublishedByInput = {
@@ -561,6 +632,7 @@ export type PaperScalarWhereInput = {
   publishedById?: Prisma.StringFilter<"Paper"> | string
   sourceType?: Prisma.EnumSourceTypeFilter<"Paper"> | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFilter<"Paper"> | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFilter<"Paper"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Paper"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Paper"> | Date | string
 }
@@ -572,9 +644,11 @@ export type PaperCreateWithoutAuthorsInput = {
   pdfUrl: string
   sourceType: $Enums.SourceType
   status?: $Enums.PaperStatus
+  datePublished?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
   publishedBy: Prisma.UserCreateNestedOneWithoutPublishedPapersInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutPapersInput
 }
 
 export type PaperUncheckedCreateWithoutAuthorsInput = {
@@ -585,8 +659,10 @@ export type PaperUncheckedCreateWithoutAuthorsInput = {
   publishedById: string
   sourceType: $Enums.SourceType
   status?: $Enums.PaperStatus
+  datePublished?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutPapersInput
 }
 
 export type PaperCreateOrConnectWithoutAuthorsInput = {
@@ -610,6 +686,55 @@ export type PaperUpdateManyWithWhereWithoutAuthorsInput = {
   data: Prisma.XOR<Prisma.PaperUpdateManyMutationInput, Prisma.PaperUncheckedUpdateManyWithoutAuthorsInput>
 }
 
+export type PaperCreateWithoutCategoriesInput = {
+  id?: string
+  title: string
+  abstract: string
+  pdfUrl: string
+  sourceType: $Enums.SourceType
+  status?: $Enums.PaperStatus
+  datePublished?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  authors?: Prisma.AuthorCreateNestedManyWithoutPapersInput
+  publishedBy: Prisma.UserCreateNestedOneWithoutPublishedPapersInput
+}
+
+export type PaperUncheckedCreateWithoutCategoriesInput = {
+  id?: string
+  title: string
+  abstract: string
+  pdfUrl: string
+  publishedById: string
+  sourceType: $Enums.SourceType
+  status?: $Enums.PaperStatus
+  datePublished?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  authors?: Prisma.AuthorUncheckedCreateNestedManyWithoutPapersInput
+}
+
+export type PaperCreateOrConnectWithoutCategoriesInput = {
+  where: Prisma.PaperWhereUniqueInput
+  create: Prisma.XOR<Prisma.PaperCreateWithoutCategoriesInput, Prisma.PaperUncheckedCreateWithoutCategoriesInput>
+}
+
+export type PaperUpsertWithWhereUniqueWithoutCategoriesInput = {
+  where: Prisma.PaperWhereUniqueInput
+  update: Prisma.XOR<Prisma.PaperUpdateWithoutCategoriesInput, Prisma.PaperUncheckedUpdateWithoutCategoriesInput>
+  create: Prisma.XOR<Prisma.PaperCreateWithoutCategoriesInput, Prisma.PaperUncheckedCreateWithoutCategoriesInput>
+}
+
+export type PaperUpdateWithWhereUniqueWithoutCategoriesInput = {
+  where: Prisma.PaperWhereUniqueInput
+  data: Prisma.XOR<Prisma.PaperUpdateWithoutCategoriesInput, Prisma.PaperUncheckedUpdateWithoutCategoriesInput>
+}
+
+export type PaperUpdateManyWithWhereWithoutCategoriesInput = {
+  where: Prisma.PaperScalarWhereInput
+  data: Prisma.XOR<Prisma.PaperUpdateManyMutationInput, Prisma.PaperUncheckedUpdateManyWithoutCategoriesInput>
+}
+
 export type PaperCreateManyPublishedByInput = {
   id?: string
   title: string
@@ -617,6 +742,7 @@ export type PaperCreateManyPublishedByInput = {
   pdfUrl: string
   sourceType: $Enums.SourceType
   status?: $Enums.PaperStatus
+  datePublished?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -628,9 +754,11 @@ export type PaperUpdateWithoutPublishedByInput = {
   pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authors?: Prisma.AuthorUpdateManyWithoutPapersNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutPapersNestedInput
 }
 
 export type PaperUncheckedUpdateWithoutPublishedByInput = {
@@ -640,9 +768,11 @@ export type PaperUncheckedUpdateWithoutPublishedByInput = {
   pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   authors?: Prisma.AuthorUncheckedUpdateManyWithoutPapersNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutPapersNestedInput
 }
 
 export type PaperUncheckedUpdateManyWithoutPublishedByInput = {
@@ -652,6 +782,7 @@ export type PaperUncheckedUpdateManyWithoutPublishedByInput = {
   pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -663,9 +794,11 @@ export type PaperUpdateWithoutAuthorsInput = {
   pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publishedBy?: Prisma.UserUpdateOneRequiredWithoutPublishedPapersNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutPapersNestedInput
 }
 
 export type PaperUncheckedUpdateWithoutAuthorsInput = {
@@ -676,8 +809,10 @@ export type PaperUncheckedUpdateWithoutAuthorsInput = {
   publishedById?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutPapersNestedInput
 }
 
 export type PaperUncheckedUpdateManyWithoutAuthorsInput = {
@@ -688,6 +823,48 @@ export type PaperUncheckedUpdateManyWithoutAuthorsInput = {
   publishedById?: Prisma.StringFieldUpdateOperationsInput | string
   sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
   status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PaperUpdateWithoutCategoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  abstract?: Prisma.StringFieldUpdateOperationsInput | string
+  pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
+  status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authors?: Prisma.AuthorUpdateManyWithoutPapersNestedInput
+  publishedBy?: Prisma.UserUpdateOneRequiredWithoutPublishedPapersNestedInput
+}
+
+export type PaperUncheckedUpdateWithoutCategoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  abstract?: Prisma.StringFieldUpdateOperationsInput | string
+  pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  publishedById?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
+  status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authors?: Prisma.AuthorUncheckedUpdateManyWithoutPapersNestedInput
+}
+
+export type PaperUncheckedUpdateManyWithoutCategoriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  abstract?: Prisma.StringFieldUpdateOperationsInput | string
+  pdfUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  publishedById?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceType?: Prisma.EnumSourceTypeFieldUpdateOperationsInput | $Enums.SourceType
+  status?: Prisma.EnumPaperStatusFieldUpdateOperationsInput | $Enums.PaperStatus
+  datePublished?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -699,10 +876,12 @@ export type PaperUncheckedUpdateManyWithoutAuthorsInput = {
 
 export type PaperCountOutputType = {
   authors: number
+  categories: number
 }
 
 export type PaperCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   authors?: boolean | PaperCountOutputTypeCountAuthorsArgs
+  categories?: boolean | PaperCountOutputTypeCountCategoriesArgs
 }
 
 /**
@@ -722,6 +901,13 @@ export type PaperCountOutputTypeCountAuthorsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.AuthorWhereInput
 }
 
+/**
+ * PaperCountOutputType without action
+ */
+export type PaperCountOutputTypeCountCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CategoryWhereInput
+}
+
 
 export type PaperSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -731,10 +917,12 @@ export type PaperSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   publishedById?: boolean
   sourceType?: boolean
   status?: boolean
+  datePublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   authors?: boolean | Prisma.Paper$authorsArgs<ExtArgs>
   publishedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  categories?: boolean | Prisma.Paper$categoriesArgs<ExtArgs>
   _count?: boolean | Prisma.PaperCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["paper"]>
 
@@ -746,6 +934,7 @@ export type PaperSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   publishedById?: boolean
   sourceType?: boolean
   status?: boolean
+  datePublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   publishedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -759,6 +948,7 @@ export type PaperSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   publishedById?: boolean
   sourceType?: boolean
   status?: boolean
+  datePublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   publishedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -772,14 +962,16 @@ export type PaperSelectScalar = {
   publishedById?: boolean
   sourceType?: boolean
   status?: boolean
+  datePublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PaperOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "abstract" | "pdfUrl" | "publishedById" | "sourceType" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["paper"]>
+export type PaperOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "abstract" | "pdfUrl" | "publishedById" | "sourceType" | "status" | "datePublished" | "createdAt" | "updatedAt", ExtArgs["result"]["paper"]>
 export type PaperInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   authors?: boolean | Prisma.Paper$authorsArgs<ExtArgs>
   publishedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  categories?: boolean | Prisma.Paper$categoriesArgs<ExtArgs>
   _count?: boolean | Prisma.PaperCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PaperIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -794,6 +986,7 @@ export type $PaperPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     authors: Prisma.$AuthorPayload<ExtArgs>[]
     publishedBy: Prisma.$UserPayload<ExtArgs>
+    categories: Prisma.$CategoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -803,6 +996,7 @@ export type $PaperPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     publishedById: string
     sourceType: $Enums.SourceType
     status: $Enums.PaperStatus
+    datePublished: Date
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["paper"]>
@@ -1201,6 +1395,7 @@ export interface Prisma__PaperClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   authors<T extends Prisma.Paper$authorsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Paper$authorsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   publishedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  categories<T extends Prisma.Paper$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Paper$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1237,6 +1432,7 @@ export interface PaperFieldRefs {
   readonly publishedById: Prisma.FieldRef<"Paper", 'String'>
   readonly sourceType: Prisma.FieldRef<"Paper", 'SourceType'>
   readonly status: Prisma.FieldRef<"Paper", 'PaperStatus'>
+  readonly datePublished: Prisma.FieldRef<"Paper", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Paper", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Paper", 'DateTime'>
 }
@@ -1656,6 +1852,30 @@ export type Paper$authorsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.AuthorScalarFieldEnum | Prisma.AuthorScalarFieldEnum[]
+}
+
+/**
+ * Paper.categories
+ */
+export type Paper$categoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Category
+   */
+  select?: Prisma.CategorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Category
+   */
+  omit?: Prisma.CategoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CategoryInclude<ExtArgs> | null
+  where?: Prisma.CategoryWhereInput
+  orderBy?: Prisma.CategoryOrderByWithRelationInput | Prisma.CategoryOrderByWithRelationInput[]
+  cursor?: Prisma.CategoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CategoryScalarFieldEnum | Prisma.CategoryScalarFieldEnum[]
 }
 
 /**

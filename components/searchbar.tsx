@@ -5,15 +5,24 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import SearchResults from "./search-results";
 
+type Item = {
+  id: string
+  title: string
+  abstract: string
+  pdfUrl: string
+  datePublished: string
+  status: string 
+}
 
-const SearchBar = ({papers} : {papers: any[]}) => {
+const SearchBar = ({papers} : {papers: Item[]}) => {
 
   const [query, setQuery] = useState("");
   const filteredItems = useMemo(() => {
     return searchItems(papers, query);
   }, [query, papers]);
 
-  
+
+  console.log(papers)
 
   return (
     <div className="flex flex-col items-center gap-6">

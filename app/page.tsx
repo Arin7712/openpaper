@@ -1,16 +1,12 @@
 
-import { ModeToggle } from "@/components/mode-toggle"
-import SearchBar from "@/components/searchbar"
-import { fetchPapers } from "@/lib/db/paper";
+import SearchContainer from "@/components/SearchContainer";
 
-const Home = async() => {
-  const papers = await fetchPapers();
+const Home = () => {
 
   return (
-    <main className="flex justify-center  min-h-screen w-full">
+    <main className="flex justify-center w-full md:pt-[10%]">
       <div className="flex flex-col gap-4 w-full">
-      <ModeToggle/>
-        <SearchBar papers={papers}/>
+        <SearchContainer/>
       </div>
     </main>
   )

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { categories } from "../constants";
 
 export const UploadFormSchema = z.object({
   title: z.string().min(5, "Title must be atleast 5 characters long."),
@@ -14,4 +15,5 @@ export const UploadFormSchema = z.object({
       }),
     )
     .min(1, "Atleast one author is required."),
+  categories: z.array(z.string()).min(1),
 });

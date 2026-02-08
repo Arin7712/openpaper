@@ -29,16 +29,35 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
-import { UploadFormSchema } from "@/lib/validations/upload-form";
-import { PublishPaperManually } from "@/lib/db/paper";
 
-export default function UploadForm({ publishedById }: { publishedById: string }) {
-  const form = useForm({
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+import { UploadFormSchema } from "@/lib/validations/upload-form";
+import { PublishPaperManually, PublishPaperProps } from "@/lib/db/paper";
+import { Calendar } from "../ui/calendar";
+import { categories } from "@/lib/constants";
+import { Label } from "../ui/label";
+
+export default function UploadForm({
+  publishedById,
+}: {
+  publishedById: string;
+}) {
+  const form = useForm<PublishPaperProps>({
     defaultValues: {
       title: "",
       abstract: "",
       pdfUrl: "",
       authors: [{ name: "", affiliation: "" }],
+      datePublished: new Date(),
+      categories: [],
     },
     validators: {
       onSubmit: ({ value }) => {
@@ -60,7 +79,9 @@ export default function UploadForm({ publishedById }: { publishedById: string })
         publishedById: publishedById,
         status: "PUBLISHED",
         sourceType: "MANUAL",
-      })
+        datePublished: new Date(value.datePublished),
+        categories: value.categories,
+      });
       console.log(value);
       toast("You submitted the following values:");
     },
@@ -135,6 +156,76 @@ export default function UploadForm({ publishedById }: { publishedById: string })
                         Include steps to reproduce, expected behavior, and what
                         actually happened.
                       </FieldDescription>
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              </form.Field>
+
+              <form.Field name="datePublished">
+                {(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <FieldLabel htmlFor={field.name}>
+                        Date Published
+                      </FieldLabel>
+                      <div>
+                        <Calendar
+                          mode="single"
+                          selected={field.state.value}
+                          onSelect={(date) => {
+                            if (date) field.handleChange(date);
+                          }}
+                          initialFocus
+                        />
+                      </div>
+                    </Field>
+                  );
+                }}
+              </form.Field>
+
+              <form.Field name="categories">
+                {(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  
+
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <FieldLabel>Categories</FieldLabel>
+
+                      <div className="flex flex-col gap-2">
+                        {categories.map((category) => {
+                          const checked = field.state.value.includes(category);
+
+                          return (
+                            <label
+                              key={category}
+                              className="flex items-center gap-2 text-sm"
+                            >
+                              <input
+                                type="checkbox"
+                                checked={checked}
+                                onChange={(e) => {
+                                  field.handleChange(
+                                    e.target.checked
+                                      ? [...field.state.value, category]
+                                      : field.state.value.filter(
+                                          (c) => c !== category,
+                                        ),
+                                  );
+                                }}
+                              />
+                              {category}
+                            </label>
+                          );
+                        })}
+                      </div>
+
                       {isInvalid && (
                         <FieldError errors={field.state.meta.errors} />
                       )}

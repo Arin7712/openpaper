@@ -56,6 +56,8 @@ export const dataItems = [
 
 ]
 
+
+
 export function searchItems(items: any[], query: string) {
   const q = query.trim().toLowerCase()
   if (!q) return items
@@ -72,3 +74,27 @@ export function searchItems(items: any[], query: string) {
     .filter(Boolean)
     .sort((a, b) => b.score - a.score)
 }
+
+export const categories = [
+  "Artificial Intelligence",
+  "Machine Learning",
+  "Deep Learning",
+  "Data Science",
+  "Computer Vision",
+  "Natural Language Processing",
+  "Robotics",
+  "Physics",
+  "Astrophysics",
+  "Quantum Computing",
+  "Mathematics",
+  "Statistics",
+  "Biology",
+  "Neuroscience",
+  "Chemistry",
+  "Materials Science",
+  "Healthcare",
+  "Bioinformatics",
+  "Economics",
+  "Finance",
+  "Climate Science",
+]

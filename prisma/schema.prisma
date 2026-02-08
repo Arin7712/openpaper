@@ -70,8 +70,23 @@ model Paper {
   sourceType    SourceType
   status        PaperStatus @default(PUBLISHED)
 
+  // Many-to-many with categories
+  categories    Category[]  @relation("PaperCategories")
+
+  datePublished  DateTime    @default(now())
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  papers      Paper[]  @relation("PaperCategories")
 }
 
 

@@ -32,3 +32,8 @@ export type Author = Prisma.AuthorModel
  * 
  */
 export type Paper = Prisma.PaperModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
