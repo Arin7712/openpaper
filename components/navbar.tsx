@@ -11,7 +11,7 @@ const Navbar = () => {
   const {isSignedIn} = useUser();
 
   return (
-    <nav className='flex items-center justify-between w-full py-2 md:px-[6rem] border-b'>
+    <nav className='flex items-center justify-between w-full py-2 md:px-[6rem] px-6 border-b'>
       {/* Logo */}
       <Link href="/">
       <h3>OpenPaper</h3>
