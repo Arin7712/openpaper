@@ -7,9 +7,8 @@ const SearchContainer = async() => {
     console.log("PAPERS: ", papers);
     
   return (
-    <main>
+    <main className='md:mt-[5%]'>
      <SearchBar papers={papers}/>
-
     </main>
   )
 }

@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import SearchResults from "./search-results";
+import { Field } from "./ui/field";
 
 type Item = {
   id: string
@@ -27,8 +28,8 @@ const SearchBar = ({papers} : {papers: Item[]}) => {
   return (
     <div className="flex flex-col items-center gap-6">
       <div className="md:w-[30%] w-[90%]">
+      <Field>
         <Label>Search</Label>
-        <div className="flex items-center">
         <Input
         placeholder="Search a research paper..."
           type="search"
@@ -36,7 +37,7 @@ const SearchBar = ({papers} : {papers: Item[]}) => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        </div>
+        </Field>
       </div>
       <SearchResults filteredItems={filteredItems} />
     </div>

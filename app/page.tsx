@@ -1,10 +1,11 @@
 
+import SearchResults from "@/components/search-results";
 import SearchContainer from "@/components/SearchContainer";
 
 const Home = () => {
 
   return (
-    <main className="flex justify-center w-full md:pt-[10%]">
+    <main className="flex justify-center w-full">
       <div className="flex flex-col gap-4 w-full">
         <SearchContainer/>
       </div>

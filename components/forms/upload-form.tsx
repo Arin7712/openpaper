@@ -1,11 +1,7 @@
 "use client";
 
-import * as React from "react";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
-import * as z from "zod";
-import { zodValidator } from "@tanstack/zod-form-adapter";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -30,41 +26,41 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
 import { UploadFormSchema } from "@/lib/validations/upload-form";
-import { PublishPaperManually} from "@/lib/db/paper";
+import { PublishPaperManually } from "@/lib/db/paper";
 import { Calendar } from "../ui/calendar";
 import { categories } from "@/lib/constants";
-import { Label } from "../ui/label";
-
 
 export default function UploadForm({
   publishedById,
 }: {
   publishedById: string;
 }) {
+
+  const sanitize = (value: typeof form.state.values) => ({
+  ...value,
+  categories: value.categories.filter(c => c.slug !== "")
+});
+
+
   const form = useForm({
     defaultValues: {
       title: "",
       abstract: "",
       pdfUrl: "",
       authors: [{ name: "", affiliation: "" }],
-      datePublished:  new Date(),
-      categories: [{name: "", slug: ""}],
+      datePublished: new Date(),
+      categories: [{ name: "", slug: "" }],
     },
     validators: {
       onSubmit: ({ value }) => {
-        const result = UploadFormSchema.safeParse(value);
+              const cleaned = sanitize(value);
 
+        const result = UploadFormSchema.safeParse(cleaned);
+        console.log("VALUES:", value);
         if (!result.success) {
+          console.log("VALIDATION ERROR:", result.error.flatten()); // 👈 DEBUG
+
           return result.error.flatten().fieldErrors;
         }
 
@@ -72,18 +68,20 @@ export default function UploadForm({
       },
     },
     onSubmit: async ({ value }) => {
+          const cleaned = sanitize(value);
+
       await PublishPaperManually({
-        title: value.title,
-        abstract: value.abstract,
-        pdfUrl: value.pdfUrl,
-        authors: value.authors,
+        title: cleaned.title,
+        abstract: cleaned.abstract,
+        pdfUrl: cleaned.pdfUrl,
+        authors: cleaned.authors,
         publishedById: publishedById,
         status: "PUBLISHED",
         sourceType: "MANUAL",
-        datePublished: new Date(value.datePublished),
-        categories: value.categories,
+        datePublished: new Date(cleaned.datePublished),
+        categories: cleaned.categories,
       });
-      console.log(value);
+      console.log(cleaned);
       toast("You submitted the following values:");
     },
   });
@@ -193,7 +191,6 @@ export default function UploadForm({
                 {(field) => {
                   const isInvalid =
                     field.state.meta.isTouched && !field.state.meta.isValid;
-                  
 
                   return (
                     <Field data-invalid={isInvalid}>
@@ -201,7 +198,9 @@ export default function UploadForm({
 
                       <div className="flex flex-col gap-2">
                         {categories.map((category) => {
-const checked = field.state.value.some(c => c.slug === category);
+                          const checked = field.state.value.some(
+                            (c) => c.slug === category,
+                          );
 
                           return (
                             <label
@@ -212,13 +211,24 @@ const checked = field.state.value.some(c => c.slug === category);
                                 type="checkbox"
                                 checked={checked}
                                 onChange={(e) => {
-                                  field.handleChange(
-                                    e.target.checked
-                                      ? [...field.state.value, {name: category, slug: category}]
-                                      : field.state.value.filter(
-                                          (c) => c.slug !== category,
-                                        ),
-                                  );
+                                  if (e.target.checked) {
+                                    if (
+                                      !field.state.value.some(
+                                        (c) => c.slug === category,
+                                      )
+                                    ) {
+                                      field.handleChange([
+                                        ...field.state.value,
+                                        { name: category, slug: category },
+                                      ]);
+                                    }
+                                  } else {
+                                    field.handleChange(
+                                      field.state.value.filter(
+                                        (c) => c.slug !== category,
+                                      ),
+                                    );
+                                  }
                                 }}
                               />
                               {category}

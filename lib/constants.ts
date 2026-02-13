@@ -60,7 +60,7 @@ export const dataItems = [
 
 export function searchItems(items: any[], query: string) {
   const q = query.trim().toLowerCase()
-  if (!q) return items
+  if (!q) return [...items].reverse()
 
   return items
     .map(item => {
