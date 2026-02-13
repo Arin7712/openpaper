@@ -36,12 +36,10 @@ export default function UploadForm({
 }: {
   publishedById: string;
 }) {
-
   const sanitize = (value: typeof form.state.values) => ({
-  ...value,
-  categories: value.categories.filter(c => c.slug !== "")
-});
-
+    ...value,
+    categories: value.categories.filter((c) => c.slug !== ""),
+  });
 
   const form = useForm({
     defaultValues: {
@@ -54,7 +52,7 @@ export default function UploadForm({
     },
     validators: {
       onSubmit: ({ value }) => {
-              const cleaned = sanitize(value);
+        const cleaned = sanitize(value);
 
         const result = UploadFormSchema.safeParse(cleaned);
         console.log("VALUES:", value);
@@ -68,7 +66,7 @@ export default function UploadForm({
       },
     },
     onSubmit: async ({ value }) => {
-          const cleaned = sanitize(value);
+      const cleaned = sanitize(value);
 
       await PublishPaperManually({
         title: cleaned.title,

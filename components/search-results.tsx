@@ -36,16 +36,18 @@ const SearchResults = ({
   filteredItems: SearchResultsProps[];
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-6">
-
+    <div className="flex flex-col items-center justify-center gap-6 md:w-full w-[90%]">
       {/* ---------- GRID VIEW ---------- */}
-      <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1 gap-6">
+      <div className="flex flex-col items-center gap-6 w-full">
         {filteredItems.map((item) => (
-          <Card className="md:w-3xl" key={item.id}>
+          <Card className="md:w-[48%] w-[90%]" key={item.id}>
             <CardHeader>
               <CardTitle>{item.title}</CardTitle>
-              <CardDescription>
+              <CardDescription className="md:flex hidden">
                 {item.abstract}
+              </CardDescription>
+              <CardDescription className="md:hidden flex">
+                {item.abstract.slice(0,250)}...
               </CardDescription>
             </CardHeader>
 
@@ -57,9 +59,9 @@ const SearchResults = ({
               </div>
             </CardContent>
             <CardFooter className="flex justify-between items-center">
-                <div className="mt-2">
-                  <Link href={item.pdfUrl}>View PDF</Link>
-                </div>
+              <div className="mt-2">
+                <Link href={item.pdfUrl}>View PDF</Link>
+              </div>
               <div>
                 {new Date(item.datePublished).toLocaleDateString("en-GB", {
                   day: "2-digit",
@@ -67,7 +69,6 @@ const SearchResults = ({
                   year: "numeric",
                 })}
               </div>
-
             </CardFooter>
           </Card>
         ))}

@@ -1,5 +1,4 @@
 
-import SearchResults from "@/components/search-results";
 import SearchContainer from "@/components/SearchContainer";
 
 const Home = () => {
