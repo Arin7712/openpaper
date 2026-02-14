@@ -42,7 +42,11 @@ const SearchResults = ({
         {filteredItems.map((item) => (
           <Card className="md:w-[48%] w-[90%]" key={item.id}>
             <CardHeader>
-              <CardTitle>{item.title}</CardTitle>
+              <CardTitle>
+                <h1 className="text-lg">
+                {item.title}
+                </h1>
+                </CardTitle>
               <CardDescription className="md:flex hidden">
                 {item.abstract}
               </CardDescription>
@@ -52,7 +56,7 @@ const SearchResults = ({
             </CardHeader>
 
             <CardContent>
-              <div className="flex gap-4 mt-2">
+              <div className="flex gap-4 mt-2 md:text-md text-sm">
                 {item.categories.map((category) => (
                   <p key={category.id}>{category.name}</p>
                 ))}
@@ -60,9 +64,9 @@ const SearchResults = ({
             </CardContent>
             <CardFooter className="flex justify-between items-center">
               <div className="mt-2">
-                <Link href={item.pdfUrl}>View PDF</Link>
+                <Link href={item.pdfUrl} className="text-sm underline">View PDF</Link>
               </div>
-              <div>
+              <div className="text-sm">
                 {new Date(item.datePublished).toLocaleDateString("en-GB", {
                   day: "2-digit",
                   month: "2-digit",
