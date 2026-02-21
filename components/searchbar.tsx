@@ -5,6 +5,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import SearchResults from "./search-results";
 import { Field } from "./ui/field";
+import ScrollPaper from "./ScrollPaper";
 
 type Item = {
   id: string
@@ -39,7 +40,8 @@ const SearchBar = ({papers} : {papers: Item[]}) => {
         />
         </Field>
       </div>
-      <SearchResults filteredItems={filteredItems} />
+      {/* <SearchResults filteredItems={filteredItems} /> */}
+      <ScrollPaper filteredItems={filteredItems}/>
     </div>
   );
 };
