@@ -1,15 +1,15 @@
 export function detectSource() {
-  const params = new URLSearchParams(window.location.search);
-  const utm = params.get("src");
+  const ua = navigator.userAgent.toLowerCase();
+  const ref = document.referrer.toLowerCase();
 
-  if (utm) return utm;
+  if (ua.includes("whatsapp")) return "whatsapp";
+  if (ua.includes("twitter")) return "twitter";
+  if (ua.includes("linkedin")) return "linkedin";
+  if (ua.includes("instagram")) return "instagram";
 
-  const ref = document.referrer;
-
-  if (!ref) return "direct";
-  if (ref.includes("instagram")) return "instagram";
-  if (ref.includes("twitter") || ref.includes("t.co")) return "twitter";
+  if (ref.includes("twitter")) return "twitter";
   if (ref.includes("linkedin")) return "linkedin";
+  if (ref.includes("instagram")) return "instagram";
 
-  return "other";
+  return "direct";
 }
