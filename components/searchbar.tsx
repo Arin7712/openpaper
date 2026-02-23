@@ -24,7 +24,7 @@ const SearchBar = ({papers} : {papers: Item[]}) => {
   }, [query, papers]);
 
 
-  console.log(papers)
+  // console.log(papers)
 
   return (
     <div className="flex flex-col items-center gap-6">
